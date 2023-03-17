@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* common */
+  .common-container {
+    @apply px-10 py-4;
+  }
+  .flex_box {
+    @apply flex flex-row;
+  }
+}
