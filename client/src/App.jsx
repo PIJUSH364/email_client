@@ -1,9 +1,11 @@
 import React from "react";
 import { Login } from "./auth/Login";
 import SignUp from "./auth/Signup";
+import Footer from "./components/Footer";
 
 import Home from "./components/Home";
 import { Nav } from "./components/navBar/Nav";
+import { UploadDocuments } from "./components/UploadDocuments";
 
 const App = () => {
   return (
@@ -11,14 +13,16 @@ const App = () => {
       {/* nav component */}
       <Nav />
       {/* home component */}
-      <Home />
+      {/* <Home /> */}
       {/* mcl intranet_form */}
-      <Login />
+      {/* <Login />
 
-      <SignUp />
-
+      <SignUp /> */}
+      {/* upload document */}
+      <UploadDocuments />
       {/* mcl intranet_details */}
       {/* footer component */}
+      <Footer />
     </div>
   );
 };

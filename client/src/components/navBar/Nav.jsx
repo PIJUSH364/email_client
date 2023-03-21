@@ -1,4 +1,5 @@
 import React from "react";
+import { publicItem } from "../../controller/navItem";
 
 export const Nav = () => {
   return (
@@ -12,10 +13,11 @@ export const Nav = () => {
         />
         {/* menu items */}
         <ul className="flex_box items-center gap-6 text-[1.2rem] capitalize font-[500] tracking-wide">
-          <li className="menuItem">home</li>
-          <li className="menuItem">about</li>
-          <li className="menuItem">careers</li>
-          <li className="menuItem">contactUs</li>
+          {publicItem.map((item, key) => (
+            <li key={key} className="menuItem">
+              {item.title}
+            </li>
+          ))}
         </ul>
       </div>
 
