@@ -1,6 +1,7 @@
 import React from "react";
 import { Login } from "./auth/Login";
 import SignUp from "./auth/Signup";
+import AllDocument from "./components/AllDocument";
 import Footer from "./components/Footer";
 
 import Home from "./components/Home";
@@ -19,7 +20,9 @@ const App = () => {
 
       <SignUp /> */}
       {/* upload document */}
-      <UploadDocuments />
+      {/* <UploadDocuments /> */}
+      {/* document table */}
+      <AllDocument />
       {/* mcl intranet_details */}
       {/* footer component */}
       <Footer />
