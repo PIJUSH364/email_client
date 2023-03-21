@@ -1,6 +1,6 @@
 import React from "react";
 import { Login } from "./auth/Login";
-import SignUp from "./auth/Signup";
+// import SignUp from "./auth/Signup";
 import AllDocument from "./components/AllDocument";
 import Footer from "./components/Footer";
 
@@ -14,11 +14,11 @@ const App = () => {
       {/* nav component */}
       <Nav />
       {/* home component */}
-      {/* <Home /> */}
+      <Home />
       {/* mcl intranet_form */}
-      {/* <Login />
+      <Login />
 
-      <SignUp /> */}
+      {/* <SignUp /> */}
       {/* upload document */}
       {/* <UploadDocuments /> */}
       {/* document table */}
@@ -26,6 +26,7 @@ const App = () => {
       {/* mcl intranet_details */}
       {/* footer component */}
       <Footer />
+
     </div>
   );
 };

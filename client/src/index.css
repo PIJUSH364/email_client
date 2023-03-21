@@ -16,4 +16,7 @@
   .menuItem {
     @apply px-4 py-2 rounded-md;
   }
+  .tableColumn {
+    @apply border-2 border-gray-600 text-center;
+  }
 }
