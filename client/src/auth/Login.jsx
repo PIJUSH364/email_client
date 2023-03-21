@@ -1,13 +1,17 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 export const Login = () => {
+  const user = useSelector((state) => state.user.userInfo);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+    console.log(user);
     console.log(data);
   };
   return (
@@ -35,7 +39,7 @@ export const Login = () => {
               type="password"
               {...register("password", {
                 required: true,
-                pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
+                // pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
               })}
             />
           </Form.Field>
