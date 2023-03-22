@@ -6,12 +6,14 @@ import { Outlet } from "./components/Outlet";
 import ApplayOut from "./components/ApplayOut";
 import { Route, Routes } from "react-router-dom";
 import { Nav } from "./components/navBar/Nav";
+import AllDocument from "./components/AllDocument";
 
 const App = () => {
   const dispatch = useDispatch();
   return (
     <>
       <Nav />
+      <AllDocument />
       <Routes>
         <Route path="/" element={<Outlet />}>
         </Route>

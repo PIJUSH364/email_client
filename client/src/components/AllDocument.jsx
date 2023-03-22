@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import { tableAttribute, tableContent } from "../controller/tableAttribute";
+import { useData } from "../customHook/useData";
 
 const AllDocument = () => {
   const [entries, setEntries] = useState(4);
   const [searchWord, setSearchWord] = useState("");
-  const [searchContent, setSearchContent] = useState([])
+  const [searchContent, setSearchContent] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/emp/emp_content")
+      .then(function (response) {
+        setTableData(...response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  console.log(tableData);
 
   // search method
   function resultContent() {
@@ -12,7 +29,19 @@ const AllDocument = () => {
       content.title.toLowerCase().match(searchWord.trim().toLocaleLowerCase()));
     setSearchContent(result);
   }
-
+  // Make a request for a user with a given ID
+  axios.get('/user?ID=12345')
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
 
   return (
     <div>
@@ -65,8 +94,8 @@ const AllDocument = () => {
                 <td className="tableColumn">{content.title}</td>
                 <td className="tableColumn">{content.department}</td>
                 <td className="tableColumn">{content.search_keyword}</td>
-                <td className="tableColumn">{content.view}</td>
-              </tr>) : tableContent.slice(0, entries).map((content, key) =>
+                <td className="tableColumn">{content?.view}</td>
+              </tr>) : tableData.length > 0 && tableData.slice(0, entries).map((content, key) =>
                 <tr key={key}>
                   <td className="tableColumn">{content.Doc_No}</td>
                   <td className="tableColumn">{content.Ref_no}</td>
@@ -74,7 +103,7 @@ const AllDocument = () => {
                   <td className="tableColumn">{content.title}</td>
                   <td className="tableColumn">{content.department}</td>
                   <td className="tableColumn">{content.search_keyword}</td>
-                  <td className="tableColumn">{content.view}</td>
+                  <td className="tableColumn">{content?.view}</td>
                 </tr>)
           }
         </tbody>
