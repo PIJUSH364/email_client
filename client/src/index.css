@@ -19,4 +19,7 @@
   .tableColumn {
     @apply border-2 border-gray-600 text-center;
   }
+  .bg_test{
+    @apply bg-black text-white;
+  }
 }

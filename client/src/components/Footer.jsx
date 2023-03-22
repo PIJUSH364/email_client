@@ -1,9 +1,9 @@
 import React from "react";
 
 const Footer = () => {
-  return <div className="flex_box common-container justify-between bg-black text-white ">
-    <p>© 2021 Mahanadi Coalfields Limited. All Rights Reserved.</p>
-    <p>Last updated on: November 15 2021 12:35:11</p>
+  return <div className="flex_box  justify-between bg_test rounded-t-3xl px-6 py-4 pb-0 tracking-[1px] text-gray-400 font-light">
+    <p>© 2023 Mahanadi Coalfields Limited. All Rights Reserved.</p>
+    <p>Last updated on: mar 21 2023 12:35:11</p>
   </div>;
 };
 
