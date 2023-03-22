@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Form, Button } from "semantic-ui-react";
 
-const SignUp = () => {
+export const SignUp = () => {
   const formSchema = Yup.object().shape({
     eisNo: Yup.string()
       .required("ESI  is mandatory")
@@ -31,61 +31,62 @@ const SignUp = () => {
   }
 
   return (
-    <div className="bg-[#F7F9FC] text-center">
-      <p>Login to ECL Intranet</p>
-      <div className="w-[300px] flex_box justify-center border-2 m-40  mb-10">
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Field>
-            <label>Eis no</label>
-            <input
-              name="eisNo"
-              placeholder="Enter your Eis  Code"
-              type="text"
-              {...register("eisNo")}
-            />
-          </Form.Field>
-          {errors.eisNo && <p>{errors.eisNo?.message}</p>}
-          <Form.Field>
-            <label>Employee Code</label>
-            <input
-              name="empCode"
-              placeholder="Enter Unique Code"
-              type="text"
-              {...register("empCode")}
-            />
-          </Form.Field>
-          {errors.empCode && <p>{errors.empCode?.message}</p>}
-          <Form.Field>
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              {...register("password")}
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
-            />
-            <div className="invalid-feedback">{errors.password?.message}</div>
-          </Form.Field>
-          <Form.Field>
-            <label>Confirm Password</label>
-            <input
-              name="confirmPwd"
-              type="password"
-              {...register("confirmPwd")}
-              className={`form-control ${
-                errors.confirmPwd ? "is-invalid" : ""
+    <div className="   flex flex-col justify-center items-center p-4">
+      <p className="text-2xl pb-2">SignUp to ECL Intranet</p>
+      <Form
+        className="border-[1px] p-6 rounded-lg border-slate-400"
+        onSubmit={handleSubmit(onSubmit)}>
+        <Form.Field>
+          <label>Eis no</label>
+          <input
+            name="eisNo"
+            placeholder="Enter your Eis  Code"
+            type="text"
+            {...register("eisNo")}
+          />
+        </Form.Field>
+        {errors.eisNo && <p>{errors.eisNo?.message}</p>}
+        <Form.Field>
+          <label>Employee Code</label>
+          <input
+            name="empCode"
+            placeholder="Enter Unique Code"
+            type="text"
+            {...register("empCode")}
+          />
+        </Form.Field>
+        {errors.empCode && <p>{errors.empCode?.message}</p>}
+        <Form.Field>
+          <label>Password</label>
+          <input
+            name="password"
+            type="password"
+            {...register("password")}
+            className={`form-control ${errors.password ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.password?.message}</div>
+        </Form.Field>
+        <Form.Field>
+          <label>Confirm Password</label>
+          <input
+            name="confirmPwd"
+            type="password"
+            {...register("confirmPwd")}
+            className={`form-control ${errors.confirmPwd ? "is-invalid" : ""
               }`}
-            />
-            <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
-          </Form.Field>
-          <div className="mt-3">
-            <button type="submit" className="border-2 border-red-500">
-              Submit
-            </button>
-          </div>
-        </Form>
-      </div>
-    </div>
-  );
-};
+          />
+          <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
+        </Form.Field>
 
-export default SignUp;
+        <div className="text-center mt-12">
+          <button type="submit" className="border-[2px] p-1 rounded-lg text-lg px-6  border-slate-400">Submit</button>
+        </div>
+
+      </Form>
+    </div>
+  )
+}
+
+
+
+

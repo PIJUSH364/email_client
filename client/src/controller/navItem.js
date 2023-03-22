@@ -4,10 +4,10 @@ export const publicItem = [
   { link: "/", title: "career", subMenu: [{ link: "/", title: "" }] },
   { link: "/", title: "contact us", subMenu: [{ link: "/", title: "" }] },
 ];
-export const restrictedItem = [
+export const authItem = [
   {
     link: "/",
-    title: "documentSection",
+    title: "document Section",
     subMenu: [
       { link: "/", title: "all doc" },
       { link: "/", title: "cmd section" },
@@ -16,5 +16,12 @@ export const restrictedItem = [
   { link: "/", title: "UploadDoc", subMenu: [{ link: "/", title: "" }] },
   { link: "/", title: "changePassword", subMenu: [{ link: "/", title: "" }] },
   { link: "/", title: "searchDoc", subMenu: [{ link: "/", title: "" }] },
-  { link: "/", title: "logout", subMenu: [{ link: "/", title: "" }] },
+  {
+    title: "logout",
+    handleClick: function (e) {
+      e.preventDefault();
+      console.log("hi");
+    },
+    subMenu: [{ link: "/", title: "" }],
+  },
 ];
