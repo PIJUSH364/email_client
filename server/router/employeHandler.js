@@ -14,15 +14,20 @@ const employeeInfoRouter = express.Router();
 
 contentRouter.post("/emp_content", async (req, res) => {
     try {
-        const { DocumentNo, refNo, DocumentType, title, section, department, search_keyWord } = req.body;
+        const data = req.body;
+
         // new user create
-        const content = new tableContent({ DocumentNo, refNo, DocumentType, title, section, department, search_keyWord });
+        console.log(data);
+        const content = new tableContent({ DocumentNo: data.DocumentType, refNo: data.refNo, DocumentType: data.DocumentType, title: data.title, section: data.section, department: data.department, search_keyWord: data.searchkeyWord});
+
+        
         // user save on mongodb
         await content.save();
         // finally response send
         res.status(200).send({ message: 'upload successful!' });
 
     } catch (error) {
+      
         res.status(200).send({ message: 'upload failed!' });
     }
 })
@@ -41,13 +46,17 @@ contentRouter.get("/emp_content", async (req, res) => {
 
 employeeRouter.post("/sing_up", async (req, res) => {
     try {
-        const { eisNo, employeeCode, password } = req.body;
+        const data = req.body;
+
         // new user create
-        const newUser = new User({ eisNo, employeeCode, password });
+        const newUser = new User({ eisNo: data.eisNo, employeeCode: data.empCode, password: data.password });
         // user save on mongodb
+
         await newUser.save();
+
         // finally response send
         res.status(200).send({ message: 'SignUp successful!' });
+
     } catch (error) {
         res.status(500).send('SignUp failed!');
     }
@@ -55,16 +64,23 @@ employeeRouter.post("/sing_up", async (req, res) => {
 
 employeeInfoRouter.post("/login", async (req, res) => {
     try {
-        const { employeeCode, password } = req.body;
-        console.log(employeeCode);
+        const data = req.body;
+
         // find user present on database
-        const userInfo = await User.findOne({ employeeCode: employeeCode });
-        if (userInfo.password === password) {
-            res.status(200).send(true);
-        } else {
-            res.status(200).send(false);
-        }
+        await User.findOne({ employeeCode: data.empCode })
+            .then(response => {
+                if (response.password == data.password) {
+                    // finally response send
+                    res.status(200).send({ message: true });
+                } else {
+                    console.log("no");
+                    res.status(200).send({ message: false });
+                }
+            });
+        // console.log(userInfo);
+
     } catch (error) {
+
         res.status(200).send('login failed!');
     }
 })

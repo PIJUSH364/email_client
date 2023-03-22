@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Form, Button } from "semantic-ui-react";
+import axios from 'axios';
 
 export const SignUp = () => {
   const formSchema = Yup.object().shape({
@@ -26,7 +27,15 @@ export const SignUp = () => {
   const { errors } = formState;
 
   function onSubmit(data) {
-    console.log(JSON.stringify(data, null, 4));
+    console.log(data);
+    axios.post('http://localhost:5000/emp/sing_up', data)
+      .then(function (response) {
+        console.log(response.data.message);
+        alert(response.data.message);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     return false;
   }
 

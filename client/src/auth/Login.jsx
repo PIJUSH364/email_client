@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import axios from "axios";
 export const Login = () => {
   const user = useSelector((state) => state.user.userInfo);
 
@@ -11,8 +12,15 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(user);
-    console.log(data);
+
+    axios.post('http://localhost:5000/emp/login', data)
+      .then(function (response) {
+        console.log(response.data);
+        alert(response.data.message);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   return (
     <div className="   flex flex-col justify-center items-center p-4">
