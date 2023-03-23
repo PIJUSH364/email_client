@@ -10,7 +10,8 @@ export const UploadDocuments = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    axios.post('http://localhost:5000/emp/emp_content', data)
+    axios
+      .post("http://localhost:5000/emp/emp_content", data)
       .then(function (response) {
         console.log(response.data);
         alert(response.data.message);
@@ -20,11 +21,12 @@ export const UploadDocuments = () => {
       });
   };
   return (
-    <div className="   flex flex-col justify-center items-center p-4">
-      <p className="text-2xl pb-2">upload a document</p>
+    <div className=" py-[5rem] capitalize  flex flex-col justify-center items-center p-4 ">
+      <p className="text-3xl pb-2">upload a document</p>
       <Form
         className="border-[1px] p-6 rounded-lg border-slate-400 w-[400px]"
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Form.Field>
           <label>Document no</label>
 
@@ -128,11 +130,14 @@ export const UploadDocuments = () => {
             })}
           />
         </Form.Field>{" "} */}
-
         <div className="text-center mt-12">
-          <button type="submit" className="border-[2px] p-1 rounded-lg text-lg px-6  border-slate-400">Submit</button>
+          <button
+            type="submit"
+            className="border-[2px] p-1 rounded-lg text-lg px-6  border-slate-400"
+          >
+            Submit
+          </button>
         </div>
-
       </Form>
     </div>
   );

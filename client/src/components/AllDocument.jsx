@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { tableAttribute, tableContent } from "../controller/tableAttribute";
 import { useData } from "../customHook/useData";
 
@@ -20,15 +20,16 @@ const AllDocument = () => {
       });
   }, []);
 
-
   // search method
   function resultContent() {
     const result = tableData.filter((content) =>
-      content.title.toLowerCase().match(searchWord.trim().toLocaleLowerCase()));
+      content.title.toLowerCase().match(searchWord.trim().toLocaleLowerCase())
+    );
     setSearchContent(result);
   }
   // Make a request for a user with a given ID
-  axios.get('/user?ID=12345')
+  axios
+    .get("/user?ID=12345")
     .then(function (response) {
       // handle success
       console.log(response);
@@ -42,34 +43,41 @@ const AllDocument = () => {
     });
 
   return (
-    <div>
-      <div className="flex_box justify-between">
+    <div className=" py-20 px-2 h-[80vh]">
+      <div className="flex_box justify-between pb-4">
         <p>
           show{" "}
           <span>
             {" "}
-            <input type="number"
+            <input
+              type="number"
               value={entries}
               className="tableColumn"
-              onChange={(e) => setEntries(e.target.value)} />
+              onChange={(e) => setEntries(e.target.value)}
+            />
           </span>{" "}
           entires
-        </p>mnmmn
+        </p>
+
         <p>
-
           <span>
-            {" "}
-            <input type="text"
-              placeholder="search..."
-              className="tableColumn"
-              value={searchWord}
-              onChange={(e) => setSearchWord(e.target.value)}
-
-            />
-            <button
-              className="tableColumn p-2"
-              onClick={() => setSearchWord("")}>*</button>
-            <button className="tableColumn" onClick={resultContent}>search...</button>
+            <div className="tableColumn p-2  bg-white rounded-[1rem]">
+              {" "}
+              <input
+                type="text"
+                className="p-2 outline-none"
+                placeholder="search..."
+                value={searchWord}
+                onChange={(e) => setSearchWord(e.target.value)}
+              />
+              <i
+                class="fa-solid fa-xmark text-xl cursor-pointer"
+                onClick={() => setSearchWord("")}
+              ></i>
+              <button className="px-2 cursor-pointer" onClick={resultContent}>
+                search
+              </button>
+            </div>
           </span>
         </p>
       </div>
@@ -77,26 +85,15 @@ const AllDocument = () => {
         <thead>
           <tr>
             {tableAttribute.map((attribute, key) => (
-              <td className="tableColumn" key={key}>{attribute}</td>
+              <td className="tableColumn capitalize" key={key}>
+                {attribute}
+              </td>
             ))}
-
           </tr>
         </thead>
         <tbody>
-          {
-            searchContent.length > 0 ? searchContent.slice(0, entries).map((content, key) =>
-              <tr key={key}>
-                <td className="tableColumn">{content.DocumentNo}</td>
-                <td className="tableColumn">{content.refNo}</td>
-                <td className="tableColumn">{content.DocumentType}</td>
-                <td className="tableColumn">{content.title}</td>
-                <td className="tableColumn">{content.department}</td>
-                <td className="tableColumn">{content.search_keyWord}</td>
-                <td className="tableColumn">
-                  <button onClick={() => alert("pdf cant't view on your device")}
-                    className="text-white bg-blue-500 p-2 rounded-md underline">View</button>
-                </td>
-              </tr>) : tableData.length > 0 && tableData.slice(0, entries).map((content, key) =>
+          {searchContent.length > 0
+            ? searchContent.slice(0, entries).map((content, key) => (
                 <tr key={key}>
                   <td className="tableColumn">{content.DocumentNo}</td>
                   <td className="tableColumn">{content.refNo}</td>
@@ -105,11 +102,34 @@ const AllDocument = () => {
                   <td className="tableColumn">{content.department}</td>
                   <td className="tableColumn">{content.search_keyWord}</td>
                   <td className="tableColumn">
-                    <button onClick={() => alert("pdf cant't view on your device")}
-                      className="text-white bg-blue-500 p-2 rounded-md underline">View</button>
+                    <button
+                      onClick={() => alert("pdf cant't view on your device")}
+                      className="text-white bg-blue-500 p-2 rounded-md underline"
+                    >
+                      View
+                    </button>
                   </td>
-                </tr>)
-          }
+                </tr>
+              ))
+            : tableData.length > 0 &&
+              tableData.slice(0, entries).map((content, key) => (
+                <tr key={key}>
+                  <td className="tableColumn">{content.DocumentNo}</td>
+                  <td className="tableColumn">{content.refNo}</td>
+                  <td className="tableColumn">{content.DocumentType}</td>
+                  <td className="tableColumn">{content.title}</td>
+                  <td className="tableColumn">{content.department}</td>
+                  <td className="tableColumn">{content.search_keyWord}</td>
+                  <td className="tableColumn">
+                    <button
+                      onClick={() => alert("pdf cant't view on your device")}
+                      className="text-white bg-blue-500 p-2 rounded-md underline"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>
