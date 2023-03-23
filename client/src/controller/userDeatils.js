@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     userInfo: [{ empCode: 12345678, password: 12345678 }],
-    authStatus: true,
+    authStatus: false,
   },
   reducers: {
     addUser: (state, action) => {

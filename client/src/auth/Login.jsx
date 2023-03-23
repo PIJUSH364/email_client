@@ -17,9 +17,11 @@ export const Login = () => {
     axios
       .post("http://localhost:5000/emp/login", data)
       .then(function (response) {
-        console.log(response.data);
         alert(response.data.message);
-        console.log(response.data.message);
+
+        if (response.data.message) {
+          dispatch(isAuth(true));
+        }
       })
       .catch(function (error) {
         console.log(error);

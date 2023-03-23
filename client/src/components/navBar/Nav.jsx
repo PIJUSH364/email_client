@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { authItem, publicItem } from "../../controller/navItem";
 import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { isAuth } from "../../controller/userDeatils";
 export const Nav = () => {
   const [authStatus, setAuthStatus] = useState(!false);
+  const logIngStatus = useSelector((state) => state.user.authStatus);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {}, [logIngStatus]);
+
   return (
     <div className="bg-black text-white flex_box common-container items-center justify-between">
       {/* logo */}
@@ -19,14 +24,13 @@ export const Nav = () => {
 
       {/* menu items */}
       <ul className="flex_box items-center gap-6 text-[1.2rem] capitalize font-[500] tracking-wide">
-        {authStatus
-          ? null
-          : publicItem.map((item, key) => (
-              <Link to={item?.link} key={key} className="menuItem text-white">
-                <li>{item.title}</li>
-              </Link>
-            ))}
-        {authStatus && (
+        {!logIngStatus &&
+          publicItem.map((item, key) => (
+            <Link to={item?.link} key={key} className="menuItem text-white">
+              <li>{item.title}</li>
+            </Link>
+          ))}
+        {logIngStatus && (
           <>
             <Link to={"/"}>
               <li>Home</li>
@@ -50,7 +54,14 @@ export const Nav = () => {
               to={"/"}
               className="menuItem text-white"
             >
-              <li onClick={() => navigate("/")}>log out</li>
+              <li
+                onClick={() => {
+                  navigate("/");
+                  dispatch(isAuth(false));
+                }}
+              >
+                log out
+              </li>
             </Link>
           </>
         )}
