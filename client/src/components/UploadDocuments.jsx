@@ -10,15 +10,24 @@ export const UploadDocuments = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    axios
-      .post("http://localhost:5000/emp/emp_content", data)
-      .then(function (response) {
-        console.log(response.data);
-        alert(response.data.message);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const formData = new FormData();
+    formData.append("file", data.file[0]); // get the first file in the array
+
+    let reader = new FileReader();
+    reader.readAsDataURL(data.file[0]);
+    reader.onload = (e) => {
+      console.log(e.target.result);
+    };
+    console.log(data);
+    // axios
+    //   .post("http://localhost:5000/emp_content_upload", data)
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //     alert(response.data.message);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
   return (
     <div className=" py-[5rem] capitalize  flex flex-col justify-center items-center p-4 ">
@@ -119,17 +128,30 @@ export const UploadDocuments = () => {
             })}
           />
         </Form.Field>{" "}
-        {/* <Form.Field>
-          <label>upload pdf</label>
-          <input
-            placeholder="upload pdf"
+        <Form.Field>
+          <label>upload image</label>
+          {/* <input
+            placeholder="upload image"
             type="file"
-            accept=".pdf"
-            {...register("uploadPdf", {
+            accept=".jpg"
+            {...register("pdfFile", {
+              required: true,
+            })}
+          /> */}
+          <input
+            placeholder="upload image"
+            type="file"
+            {...register("file", {
               required: true,
             })}
           />
-        </Form.Field>{" "} */}
+        </Form.Field>{" "}
+        {errors.file && errors.file.type === "required" && (
+          <span>This field is required</span>
+        )}
+        {errors.file && errors.file.type === "validate" && (
+          <span>File size should be less than or equal to 1MB</span>
+        )}
         <div className="text-center mt-12">
           <button
             type="submit"
