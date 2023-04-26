@@ -63,50 +63,41 @@ const tableContent = new mongoose.model("Content", contentSchema);
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-app.post(
-  "/emp_content_upload",
-  upload.single("file"),
-  async (req, res, next) => {
-    console.log(req.files);
-    try {
-      const data = req.body;
+// file upload ____ start
 
-      const file = req.files.file;
 
-      console.log(data);
 
-      // cloudinary.uploader.upload(
-      //   file.tempFilePath,
-      //   { pages: true },
-      //   async (err, result) => {
-      //     const url = result.url;
-
-      //     const content = new tableContent({
-      //       DocumentNo: data.DocumentNo,
-      //       fileDocument: url,
-      //       refNo: data.refNo,
-      //       DocumentType: data.DocumentType,
-      //       title: data.title,
-      //       section: data.section,
-      //       department: data.department,
-      //       search_keyWord: data.searchkeyWord,
-      //     });
-
-      //     // user save on mongodb
-      //     await content.save();
-      //     // finally response send
-      res.status(200).send({ message: "upload successful!", file });
-      //   }
-      // );
-      // res.end();
-    } catch (error) {
-      res.status(200).send({ message: "upload failed!", error: error.message });
-    }
-  }
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
 );
+
+// Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
+app.post("/upload", (req, res, next) => {
+  console.log(req.body);
+  // const file = req.files.pdfFile;
+  // console.log(file.tempFilePath);
+  // cloudinary.uploader.upload(
+  //   file.tempFilePath,
+  //   { pages: true },
+  //   (err, result) => {
+  //     const url = result.url;
+  //     console.log("source url :", url);
+  //     res.json({ url });
+  //   }
+  // );
+});
 
 // file upload ____ end
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen port ${process.env.PORT}`)
 );
+

@@ -8,12 +8,14 @@ import { Route, Routes } from "react-router-dom";
 import { Nav } from "./components/navBar/Nav";
 import AllDocument from "./components/AllDocument";
 import { UploadDocuments } from "./components/UploadDocuments";
+import FileUpload from "./FileUpload";
 
 const App = () => {
   const dispatch = useDispatch();
   return (
     <div className="bg-[url('https://www.mahanadicoal.in/images/pattern/p11.png')]">
       <Nav />
+      <FileUpload/>
       <Routes>
         <Route path="/" element={<Outlet />} />
         <Route path="/upload_doc" element={<UploadDocuments />} />
