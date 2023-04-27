@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+var bodyParser = require('body-parser');
 const connectDb = require("./config/dbConnection");
 const {
   contentRouter,
@@ -17,7 +18,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cors());
+app.use(cors());
 
 // Allow cross-origin requests
 app.use(function (req, res, next) {
@@ -40,10 +41,16 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+
+
+// Put these statements before you define any routes.
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // connect with database
 connectDb();
 
-// route
+// // route
 app.get("/", (req, res) => res.send("app running"));
 
 // content route
@@ -63,36 +70,22 @@ const tableContent = new mongoose.model("Content", contentSchema);
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// file upload ____ start
 
-
-
-app.use(
-  fileUpload({
-    useTempFiles: true,
-  })
-);
-
-// Configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
-});
 
 app.post("/upload", (req, res, next) => {
-  console.log(req.body);
-  // const file = req.files.pdfFile;
-  // console.log(file.tempFilePath);
-  // cloudinary.uploader.upload(
-  //   file.tempFilePath,
-  //   { pages: true },
-  //   (err, result) => {
-  //     const url = result.url;
-  //     console.log("source url :", url);
-  //     res.json({ url });
-  //   }
-  // );
+  const file = req.files.File;
+  cloudinary.uploader.upload(
+    file.tempFilePath,
+    { pages: true },
+    (err, result) => {
+      if(err){
+        return res.status(404).json({ msg: err.message })
+      }
+      if(result){const url = result.url;
+        return res.status(200).json({ url: url, msg: result.message })
+      }
+    }
+  );
 });
 
 // file upload ____ end
